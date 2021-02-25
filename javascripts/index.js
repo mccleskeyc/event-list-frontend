@@ -1,3 +1,5 @@
+const meetings = [];
+
 //grab and return element "main"
 function main() {
     return document.getElementById("main")
@@ -14,6 +16,18 @@ function descriptionInput(){
 
 function dateInput(){
     return document.getElementById("date")
+}
+
+//grab form
+function form() {
+    return document.getElementById("form")
+}
+
+//reset inputs
+function resetInputAll() {
+    meetingInput().innerHTML = ""
+    descriptionInput().innerHTML = ""
+    dateInput().innerHTML = ""
 }
 
 //grab main using main(), then clear it
@@ -54,6 +68,18 @@ function formTemplate() {
 function renderForm() {
     resetMain();
     main().innerHTML = formTemplate();
+    form().addEventListener("submit", formSubmit)
+}
+
+//overrides the default refresh function of a form submit; adds the input to the array
+function formSubmit(e) {
+    e.preventDefault();
+    
+    meetings.push({
+        meeting: meetingInput().value,
+        description: descriptionInput().value,
+        date: dateInput().value
+    })
 }
 
 //event listeners
