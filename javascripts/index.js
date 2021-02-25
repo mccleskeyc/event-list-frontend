@@ -1,4 +1,4 @@
-const meetings = [];
+let meetings = [];
 //getters 
     //grab and return element "main"
     function main() {
@@ -43,6 +43,20 @@ const meetings = [];
     //grab the link to the meetings index
     function meetingsLink() {
         return document.getElementById("meetings-link")
+    }
+    //fetch the meetings from the api
+    function getMeetings(){
+        //fetch to the api, meetings index, grab meetings
+        fetch('http://localhost:3000/meetings')
+        .then(function(resp) {
+            return resp.json();
+        })
+        .then(function(data){
+            meetings = data
+
+            renderMeetings();
+        })
+        //populate "main" with said meetings
     }
 
 //templates 
@@ -158,6 +172,7 @@ function diplayMeetingsEvent() {
 //event listeners
     //on document load: render the form
     document.addEventListener("DOMContentLoaded", function(){
+        getMeetings();
         renderForm();
         displayFormEvent();
         diplayMeetingsEvent();
