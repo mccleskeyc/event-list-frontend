@@ -1,50 +1,60 @@
 const meetings = [];
+//getters 
+    //grab and return element "main"
+    function main() {
+        return document.getElementById("main")
+    }
 
-//grab and return element "main"
-function main() {
-    return document.getElementById("main")
-}
+    //grab form inputs: meeting, description, date
+    function nameInput(){
+        return document.getElementById("name")
+    }
 
-//grab form inputs: meeting, description, date
-function nameInput(){
-    return document.getElementById("name")
-}
+    function descriptionInput(){
+        return document.getElementById("description")
+    }
 
-function descriptionInput(){
-    return document.getElementById("description")
-}
+    function dateInput(){
+        return document.getElementById("date")
+    }
 
-function dateInput(){
-    return document.getElementById("date")
-}
+    //grab form
+    function form() {
+        return document.getElementById("form")
+    }
 
-//grab form
-function form() {
-    return document.getElementById("form")
-}
+    //reset inputs
+    function resetInputAll() {
+        nameInput().value = ""
+        descriptionInput().value = ""
+        dateInput().value = ""
+    }
 
-//reset inputs
-function resetInputAll() {
-    nameInput().value = ""
-    descriptionInput().value = ""
-    dateInput().value = ""
-}
+    //grab main using main(), then clear it
+    function resetMain() {
+        main().innerHTML = ""
+    }
 
-//grab main using main(), then clear it
-function resetMain() {
-    main().innerHTML = ""
-}
+    //grab the link to the form
+    function formLink() {
+        return document.getElementById("form-link")
+    }
+
+    //grab the link to the meetings index
+    function meetingsLink() {
+        return document.getElementById("meetings-link")
+    }
 
 //templates 
 
-    //create the form to create an event (EFFECT)
+    //create the form to create an event
     function formTemplate() {
         return `
         <h3>Create Event</h3>
             <form id="form">
                 <div class="input-field">
                 <label for="name">Event:</label>
-                <input type="text" name="name" id="name">
+                <input type="text" name="name" id="name" autocomplete="off">
                 </div>
 
                 <br>
@@ -128,8 +138,27 @@ function formSubmit(e) {
     renderMeetings();
 }
 
+//display our form as an event
+function displayFormEvent() {
+    formLink().addEventListener("click", function(e){
+        e.preventDefault();
+
+        renderForm();
+    })
+}
+
+//display our index of events
+function diplayMeetingsEvent() {
+    meetingsLink().addEventListener("click", function(e){
+        e.preventDefault();
+
+        renderMeetings();
+    })
+}
 //event listeners
     //on document load: render the form
     document.addEventListener("DOMContentLoaded", function(){
         renderForm();
+        displayFormEvent();
+        diplayMeetingsEvent();
     });
