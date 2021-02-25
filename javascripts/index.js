@@ -1,9 +1,4 @@
-const meetings = [
-    {name:  "Event 1", description: "Event 1", date:"2021-02-25"},
-    {name:  "Event 2", description: "Event 2", date:"2021-02-26"},
-    {name:  "Event 3", description: "Event 3", date:"2021-02-27"},
-    {name:  "Event 4", description: "Event 4", date:"2021-02-28"}
-];
+const meetings = [];
 
 //grab and return element "main"
 function main() {
@@ -11,8 +6,8 @@ function main() {
 }
 
 //grab form inputs: meeting, description, date
-function meetingInput(){
-    return document.getElementById("meeting")
+function nameInput(){
+    return document.getElementById("name")
 }
 
 function descriptionInput(){
@@ -30,7 +25,7 @@ function form() {
 
 //reset inputs
 function resetInputAll() {
-    meetingInput().value = ""
+    nameInput().value = ""
     descriptionInput().value = ""
     dateInput().value = ""
 }
@@ -48,8 +43,8 @@ function resetMain() {
         <h3>Create Event</h3>
             <form id="form">
                 <div class="input-field">
-                <label for="meeting">Event:</label>
-                <input type="text" name="meeting" id="meeting">
+                <label for="name">Event:</label>
+                <input type="text" name="name" id="name">
                 </div>
 
                 <br>
@@ -125,17 +120,16 @@ function formSubmit(e) {
     e.preventDefault();
     
     meetings.push({
-        meeting: meetingInput().value,
+        name: nameInput().value,
         description: descriptionInput().value,
         date: dateInput().value
     });
 
-    resetInputAll();
+    renderMeetings();
 }
 
 //event listeners
     //on document load: render the form
     document.addEventListener("DOMContentLoaded", function(){
-        //renderForm();
-        renderMeetings();
+        renderForm();
     });
