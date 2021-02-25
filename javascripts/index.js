@@ -8,7 +8,7 @@ function resetMain() {
     main().innerHTML = ""
 }
 
-//render the form to create an event
+//create the form to create an event (EFFECT)
 function formTemplate() {
     return `
     <h3>Create Event</h3>
@@ -36,3 +36,10 @@ function formTemplate() {
         </form>
     `;
 }
+
+//render the form
+function renderForm() {
+    resetMain();
+    main().innerHTML = formTemplate();
+}
+
