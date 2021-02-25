@@ -25,9 +25,9 @@ function form() {
 
 //reset inputs
 function resetInputAll() {
-    meetingInput().innerHTML = ""
-    descriptionInput().innerHTML = ""
-    dateInput().innerHTML = ""
+    meetingInput().value = ""
+    descriptionInput().value = ""
+    dateInput().value = ""
 }
 
 //grab main using main(), then clear it
@@ -79,7 +79,9 @@ function formSubmit(e) {
         meeting: meetingInput().value,
         description: descriptionInput().value,
         date: dateInput().value
-    })
+    });
+
+    resetInputAll();
 }
 
 //event listeners
