@@ -3,6 +3,19 @@ function main() {
     return document.getElementById("main")
 }
 
+//grab form inputs: meeting, description, date
+function meetingInput(){
+    return document.getElementById("meeting")
+}
+
+function descriptionInput(){
+    return document.getElementById("description")
+}
+
+function dateInput(){
+    return document.getElementById("date")
+}
+
 //grab main using main(), then clear it
 function resetMain() {
     main().innerHTML = ""
@@ -44,7 +57,7 @@ function renderForm() {
 }
 
 //event listeners
-    //on document load
+    //on document load: render the form
     document.addEventListener("DOMContentLoaded", function(){
         renderForm();
-    })
+    });
