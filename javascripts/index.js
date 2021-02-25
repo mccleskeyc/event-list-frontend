@@ -43,3 +43,8 @@ function renderForm() {
     main().innerHTML = formTemplate();
 }
 
+//event listeners
+    //on document load
+    document.addEventListener("DOMContentLoaded", function(){
+        renderForm();
+    })
