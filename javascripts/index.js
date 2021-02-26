@@ -90,6 +90,34 @@ function formTemplate() {
         `;
 }
 
+function editFormTemplate(meeting) {
+    return `
+        <h3>Edit Event</h3>
+            <form id="form" data-id="${meeting.id}">
+                <div class="input-field">
+                <label for="name">Event:</label>
+                <input type="text" name="name" id="name" autocomplete="off" value="${meeting.name}">
+                </div>
+
+                <br>
+
+                <div class="input-field">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="description" cols="30" rows="10">${meeting.description}</textarea>
+                </div>
+
+                <br>
+
+                <div class="input-field">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date" value="${meeting.description}" >
+                </div>
+
+                <input type="submit" value="Edit Event">
+            </form>
+        `;
+}
+
 //index template
 function meetingsTemplate() {
     return `
@@ -98,12 +126,67 @@ function meetingsTemplate() {
         `;
 }
 
-// rendering 
+
+//rendering the edit form
+function editMeeting(e) {
+    e.preventDefault();
+
+    const id = e.target.dataset.id;
+    const meeting = meetings.find(function(meeting){
+        return meeting.id == id;
+    })
+
+    renderEditForm(meeting)
+}
 //render the form
 function renderForm() {
     resetMain();
     main().innerHTML = formTemplate();
     form().addEventListener("submit", formSubmit)
+}
+
+function renderEditForm(meeting) {
+    resetMain();
+    main().innerHTML = editFormTemplate(meeting);
+    form().addEventListener("submit", editFormSubmit)
+}
+
+function editFormSubmit(e) {
+    e.preventDefault();
+
+    let strongParams = {
+        meeting: {
+            name: nameInput().value,
+            date: dateInput().value,
+            description: descriptionInput().value
+        }
+    }
+    const id = e.target.dataset.id;
+
+    fetch(baseUrl + "/meetings/" + id, {
+        method: "PATCH",
+        headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(strongParams)
+    })
+    .then(function(resp) {
+        return resp.json();
+    })
+    .then(function(meeting) {
+        // selects the meeting out of the array
+
+        let m = meetings.find(function(m) {
+            return m.id == meeting.id;
+        })
+        //gets the index of the mtg
+        let idx = meetings.indexOf(m);
+        //updates the index value with the updated mtg
+        meetings[idx] = meeting;
+        //renders array of mtgs
+        renderMeetings();
+    })
 }
 
 function renderMeeting(meeting) {
@@ -113,13 +196,20 @@ function renderMeeting(meeting) {
     let h4 = document.createElement("h4");
     let p = document.createElement("p");
     let deleteLink = document.createElement("a");
+    let editLink = document.createElement("a");
     let meetingsDiv = document.getElementById("meetings");
 
+    //handles editing meetings
+    editLink.dataset.id = meeting.id
+    editLink.setAttribute("href", "#")
+    editLink.innerText = "Edit"
+    
     //handles deleting meetings
     deleteLink.dataset.id = meeting.id
     deleteLink.setAttribute("href", "#")
     deleteLink.innerText = "Delete"
 
+    editLink.addEventListener("click", editMeeting);
     deleteLink.addEventListener("click", deleteMeeting)
 
     //set inner text to inputed data
@@ -131,6 +221,7 @@ function renderMeeting(meeting) {
     div.appendChild(h3);
     div.appendChild(h4);
     div.appendChild(p);
+    div.appendChild(editLink);
     div.appendChild(deleteLink);
 
     //rendering above template
