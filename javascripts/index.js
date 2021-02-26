@@ -1,4 +1,5 @@
 let meetings = [];
+const baseUrl = "http://localhost:3000"
 //getters 
     //grab and return element "main"
     function main() {
@@ -47,7 +48,7 @@ let meetings = [];
     //fetch the meetings from the api
     function getMeetings(){
         //fetch to the api, meetings index, grab meetings
-        fetch('http://localhost:3000/meetings')
+        fetch(baseUrl + '/meetings')
         .then(function(resp) {
             return resp.json();
         })
@@ -142,13 +143,30 @@ let meetings = [];
 //overrides the default refresh function of a form submit; adds the input to the array
 function formSubmit(e) {
     e.preventDefault();
-    
-    meetings.push({
-        name: nameInput().value,
-        description: descriptionInput().value,
-        date: dateInput().value
-    });
 
+    let strongParams = {
+        meeting: {
+            name:nameInput().value,
+            date:dateInput().value,
+            description: descriptionInput().value
+        }
+    }
+
+    //send data to the backend using a POST request
+    fetch(baseUrl + '/meetings', {
+        headers: {
+            "Accpet": "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(strongParams),
+        method: "POST"
+    })
+        .then(function(resp) {
+            return resp.json();
+        })
+        .then(function(data){
+            console.log(data)
+        })
     renderMeetings();
 }
 
