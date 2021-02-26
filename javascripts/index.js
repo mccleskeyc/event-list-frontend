@@ -1,70 +1,69 @@
 let meetings = [];
 const baseUrl = "http://localhost:3000"
 //getters 
-    //grab and return element "main"
-    function main() {
-        return document.getElementById("main")
-    }
+//grab and return element "main"
+function main() {
+    return document.getElementById("main")
+}
 
-    //grab form inputs: meeting, description, date
-    function nameInput(){
-        return document.getElementById("name")
-    }
+//grab form inputs: meeting, description, date
+function nameInput() {
+    return document.getElementById("name")
+}
 
-    function descriptionInput(){
-        return document.getElementById("description")
-    }
+function descriptionInput() {
+    return document.getElementById("description")
+}
 
-    function dateInput(){
-        return document.getElementById("date")
-    }
+function dateInput() {
+    return document.getElementById("date")
+}
 
-    //grab form
-    function form() {
-        return document.getElementById("form")
-    }
+//grab form
+function form() {
+    return document.getElementById("form")
+}
 
-    //reset inputs
-    function resetInputAll() {
-        nameInput().value = ""
-        descriptionInput().value = ""
-        dateInput().value = ""
-    }
+//reset inputs
+function resetInputAll() {
+    nameInput().value = ""
+    descriptionInput().value = ""
+    dateInput().value = ""
+}
 
-    //grab main using main(), then clear it
-    function resetMain() {
-        main().innerHTML = ""
-    }
+//grab main using main(), then clear it
+function resetMain() {
+    main().innerHTML = ""
+}
 
-    //grab the link to the form
-    function formLink() {
-        return document.getElementById("form-link")
-    }
+//grab the link to the form
+function formLink() {
+    return document.getElementById("form-link")
+}
 
-    //grab the link to the meetings index
-    function meetingsLink() {
-        return document.getElementById("meetings-link")
-    }
-    //fetch the meetings from the api
-    function getMeetings(){
-        //fetch to the api, meetings index, grab meetings
-        fetch(baseUrl + '/meetings')
-        .then(function(resp) {
+//grab the link to the meetings index
+function meetingsLink() {
+    return document.getElementById("meetings-link")
+}
+//fetch the meetings from the api
+function getMeetings() {
+    //fetch to the api, meetings index, grab meetings
+    fetch(baseUrl + '/meetings')
+        .then(function (resp) {
             return resp.json();
         })
-        .then(function(data){
+        .then(function(data) {
             meetings = data
 
             renderMeetings();
         })
-        //populate "main" with said meetings
-    }
+}
 
 //templates 
 
-    //create the form to create an event
-    function formTemplate() {
-        return `
+//create the form to create an event
+function formTemplate() {
+    return `
         <h3>Create Event</h3>
             <form id="form">
                 <div class="input-field">
@@ -89,56 +88,86 @@ const baseUrl = "http://localhost:3000"
                 <input type="submit" value="Create an Event">
             </form>
         `;
-    }
+}
 
-    //index template
-    function meetingsTemplate() {
-        return `
+//index template
+function meetingsTemplate() {
+    return `
         <h2>All Events</h3>
         <div id="meetings"></div>
         `;
-    }
-        
+}
+
 // rendering 
-    //render the form
-    function renderForm() {
-        resetMain();
-        main().innerHTML = formTemplate();
-        form().addEventListener("submit", formSubmit)
-    }
+//render the form
+function renderForm() {
+    resetMain();
+    main().innerHTML = formTemplate();
+    form().addEventListener("submit", formSubmit)
+}
 
-    function renderMeeting(meeting) {
-        //create element for each tag we need (div, h4, h3, p)
-        let div = document.createElement("div");
-        let h3 = document.createElement("h3");
-        let h4 = document.createElement("h4");
-        let p = document.createElement("p");
-        let meetingsDiv = document.getElementById("meetings")
+function renderMeeting(meeting) {
+    //create element for each tag we need (div, h4, h3, p)
+    let div = document.createElement("div");
+    let h3 = document.createElement("h3");
+    let h4 = document.createElement("h4");
+    let p = document.createElement("p");
+    let deleteLink = document.createElement("a");
+    let meetingsDiv = document.getElementById("meetings");
 
-        //set inner text to inputed data
-        h3.innerText = meeting.name;
-        h4.innerText = meeting.date;
-        p.innerText = meeting.description
+    //handles deleting meetings
+    deleteLink.dataset.id = meeting.id
+    deleteLink.setAttribute("href", "#")
+    deleteLink.innerText = "Delete"
 
-        //put the h3/h4/p tags inside the div
-        div.appendChild(h3);
-        div.appendChild(h4);
-        div.appendChild(p)
+    deleteLink.addEventListener("click", deleteMeeting)
 
-        //rendering above template
-        meetingsDiv.appendChild(div);
-    }
+    //set inner text to inputed data
+    h3.innerText = meeting.name;
+    h4.innerText = meeting.date;
+    p.innerText = meeting.description
 
-    //render the index by resetting main and setting main innerHTML to meetingsTemplate
-    function renderMeetings() {
-        resetMain();
-        main().innerHTML = meetingsTemplate();
+    //put the h3/h4/p tags inside the div
+    div.appendChild(h3);
+    div.appendChild(h4);
+    div.appendChild(p);
+    div.appendChild(deleteLink);
 
-        //iteration
-        meetings.forEach(function(meeting){
-            renderMeeting(meeting);
-        })
-    }
+    //rendering above template
+    meetingsDiv.appendChild(div);
+}
+//delete an event
+function deleteMeeting(e) {
+    e.preventDefault();
+
+  let id = e.target.dataset.id;
+
+  fetch(baseUrl + "/meetings/" + id, {
+    method: "DELETE"
+  })
+  .then(function(resp) {
+    return resp.json();
+  })
+  .then(function(data) {
+
+    meetings = meetings.filter(function(meeting){
+      return meeting.id !== data.id;
+    })
+
+    renderMeetings();
+  })
+}
+
+//render the index by resetting main and setting main innerHTML to meetingsTemplate
+function renderMeetings() {
+    resetMain();
+    main().innerHTML = meetingsTemplate();
+
+    //iteration
+    meetings.forEach(function (meeting) {
+        renderMeeting(meeting);
+    });
+}
 
 //overrides the default refresh function of a form submit; adds the input to the array
 function formSubmit(e) {
@@ -146,8 +175,8 @@ function formSubmit(e) {
 
     let strongParams = {
         meeting: {
-            name:nameInput().value,
-            date:dateInput().value,
+            name: nameInput().value,
+            date: dateInput().value,
             description: descriptionInput().value
         }
     }
@@ -161,18 +190,18 @@ function formSubmit(e) {
         body: JSON.stringify(strongParams),
         method: "POST"
     })
-        .then(function(resp) {
+        .then( function (resp) {
             return resp.json();
         })
-        .then(function(data){
-            console.log(data)
+        .then( function (meeting) {
+            meetings.push(meeting)
+            renderMeetings()
         })
-    renderMeetings();
 }
 
 //display our form as an event
 function displayFormEvent() {
-    formLink().addEventListener("click", function(e){
+    formLink().addEventListener("click", function (e) {
         e.preventDefault();
 
         renderForm();
@@ -181,17 +210,16 @@ function displayFormEvent() {
 
 //display our index of events
 function diplayMeetingsEvent() {
-    meetingsLink().addEventListener("click", function(e){
+    meetingsLink().addEventListener("click", function (e) {
         e.preventDefault();
 
         renderMeetings();
     })
 }
 //event listeners
-    //on document load: render the form
-    document.addEventListener("DOMContentLoaded", function(){
-        getMeetings();
-        renderForm();
-        displayFormEvent();
-        diplayMeetingsEvent();
-    });
+//on document load: render the form
+document.addEventListener("DOMContentLoaded", function () {
+    getMeetings();
+    displayFormEvent();
+    diplayMeetingsEvent();
+});
