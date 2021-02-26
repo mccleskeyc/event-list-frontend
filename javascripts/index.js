@@ -19,6 +19,9 @@ function dateInput() {
     return document.getElementById("date")
 }
 
+function hostInput() {
+    return document.getElementById("host")
+}
 
 //grab form
 function form() {
@@ -71,6 +74,13 @@ function formTemplate() {
                 <div class="input-field">
                 <label for="name">Event:</label>
                 <input type="text" name="name" id="name" autocomplete="off">
+                </div>
+
+                <br>
+
+                <div class="input-field">
+                <label for="host">Host:</label>
+                <input type="text" name="host" id="host" autocomplete="off">
                 </div>
 
                 <br>
@@ -204,6 +214,7 @@ function renderMeeting(meeting) {
     let div = document.createElement("div");
     let h3 = document.createElement("h3");
     let h4 = document.createElement("h4");
+    let hostedBy = document.createElement("p")
     let p = document.createElement("p");
     let deleteLink = document.createElement("a");
     let editLink = document.createElement("a");
@@ -225,11 +236,13 @@ function renderMeeting(meeting) {
     //set inner text to inputed data
     h3.innerText = meeting.name;
     h4.innerText = meeting.date;
+    hostedBy.innerText = `Hosted By: ${meeting.host.name}`;
     p.innerText = meeting.description
 
     //put the h3/h4/p tags inside the div
     div.appendChild(h3);
     div.appendChild(h4);
+    div.appendChild(hostedBy);
     div.appendChild(p);
     div.appendChild(editLink);
     div.appendChild(deleteLink);
@@ -279,6 +292,7 @@ function formSubmit(e) {
             name: nameInput().value,
             date: dateInput().value,
             description: descriptionInput().value,
+            host_attributes: hostInput().value
         }
     }
 
