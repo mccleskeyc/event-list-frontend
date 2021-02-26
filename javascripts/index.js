@@ -19,6 +19,7 @@ function dateInput() {
     return document.getElementById("date")
 }
 
+
 //grab form
 function form() {
     return document.getElementById("form")
@@ -27,8 +28,9 @@ function form() {
 //reset inputs
 function resetInputAll() {
     nameInput().value = ""
+    dateInput.value = ""
     descriptionInput().value = ""
-    dateInput().value = ""
+   
 }
 
 //grab main using main(), then clear it
@@ -74,16 +76,20 @@ function formTemplate() {
                 <br>
 
                 <div class="input-field">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date"
+                </div>
+
+                <br>
+
+                <div class="input-field">
                     <label for="description">Description:</label>
                     <textarea name="description" id="description" cols="30" rows="10"></textarea>
                 </div>
 
                 <br>
 
-                <div class="input-field">
-                    <label for="date">Date:</label>
-                    <input type="date" name="date" id="date">
-                </div>
+                
 
                 <input type="submit" value="Create an Event">
             </form>
@@ -102,16 +108,20 @@ function editFormTemplate(meeting) {
                 <br>
 
                 <div class="input-field">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" id="date" value="${meeting.date}">
+                </div>
+
+                <br>
+
+                <div class="input-field">
                     <label for="description">Description:</label>
                     <textarea name="description" id="description" cols="30" rows="10">${meeting.description}</textarea>
                 </div>
 
                 <br>
 
-                <div class="input-field">
-                    <label for="date">Date:</label>
-                    <input type="date" name="date" id="date" value="${meeting.description}" >
-                </div>
+                
 
                 <input type="submit" value="Edit Event">
             </form>
@@ -158,7 +168,7 @@ function editFormSubmit(e) {
         meeting: {
             name: nameInput().value,
             date: dateInput().value,
-            description: descriptionInput().value
+            description: descriptionInput().value,  
         }
     }
     const id = e.target.dataset.id;
@@ -268,7 +278,7 @@ function formSubmit(e) {
         meeting: {
             name: nameInput().value,
             date: dateInput().value,
-            description: descriptionInput().value
+            description: descriptionInput().value,
         }
     }
 
