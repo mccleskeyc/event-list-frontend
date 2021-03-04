@@ -82,37 +82,27 @@ function formTemplate() {
                 <label for="name">Event:</label>
                 <input type="text" name="name" id="name" autocomplete="off">
                 </div>
-
                 <br>
-
                 <div class="input-field">
                 <label for="host">Host:</label>
                 <input type="text" name="host" id="host" autocomplete="off">
                 </div>
-
                 <div class="input-field">
                 <label for="location">Location:</label>
                 <input type="text" name="location" id="location" autocomplete="off">
                 </div>
-
                 <br>
-
                 <div class="input-field">
                     <label for="date">Date:</label>
                     <input type="date" name="date" id="date"
                 </div>
-
                 <br>
-
                 <div class="input-field">
                     <label for="description">Description:</label>
                     <textarea name="description" id="description" cols="30" rows="10"></textarea>
                 </div>
-
                 <br>
-
                 
-
                 <input type="submit" value="Create an Event">
             </form>
         `;
@@ -126,31 +116,23 @@ function editFormTemplate(meeting) {
                 <label for="name">Event:</label>
                 <input type="text" name="name" id="name" autocomplete="off" value="${meeting.name}">
                 </div>
-
     
                 <div class="input-field">
                 <label for="location">Location:</label>
                 <input type="text" name="location" id="location" autocomplete="off" value="${meeting.location}">
                 </div>
-
                 <br>
-
                 <div class="input-field">
                     <label for="date">Date:</label>
                     <input type="date" name="date" id="date" value="${meeting.date}">
                 </div>
-
                 <br>
-
                 <div class="input-field">
                     <label for="description">Description:</label>
                     <textarea name="description" id="description" cols="30" rows="10">${meeting.description}</textarea>
                 </div>
-
                 <br>
-
                 
-
                 <input type="submit" value="Edit Event">
             </form>
         `;
