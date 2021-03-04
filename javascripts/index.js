@@ -1,6 +1,7 @@
 //global variables
 let meetings = [];
-const baseUrl = "http://localhost:3000"
+const baseUrl = "http://localhost:3000";
+const ul = document.getElementById("post-area")
 
 
 //getters 
@@ -17,6 +18,7 @@ function nameInput() {
 function locationInput() {
     return document.getElementById("location")
 }
+
 
 function descriptionInput() {
     return document.getElementById("description")
@@ -41,7 +43,6 @@ function resetInputAll() {
     dateInput.value = ""
     descriptionInput().value = ""
     locationInput().value = ""
-   
 }
 
 //grab main using main(), then clear it
