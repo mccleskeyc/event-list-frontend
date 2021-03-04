@@ -1,7 +1,7 @@
 //global variables
 let meetings = [];
 const baseUrl = "http://localhost:3000";
-const ul = document.getElementById("post-area")
+
 
 
 //getters 
