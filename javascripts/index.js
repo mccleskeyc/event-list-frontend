@@ -62,9 +62,7 @@ function meetingsLink() {
 function getMeetings() {
     //fetch to the api, meetings index, grab meetings
     fetch(baseUrl + '/meetings')
-        .then(function (resp) {
-            return resp.json();
-        })
+        .then(r => r.json())
         .then(function(data) {
             meetings = data
 
@@ -211,9 +209,7 @@ function editFormSubmit(e) {
     },
     body: JSON.stringify(strongParams)
     })
-    .then(function(resp) {
-        return resp.json();
-    })
+    .then(r => r.json())
     .then(function(meeting) {
         // selects the meeting out of the array
 
@@ -282,9 +278,7 @@ function deleteMeeting(e) {
   fetch(baseUrl + "/meetings/" + id, {
     method: "DELETE"
   })
-  .then(function(resp) {
-    return resp.json();
-  })
+  .then(r => r.json())
   .then(function(data) {
 
     meetings = meetings.filter(function(meeting){
@@ -315,6 +309,7 @@ function formSubmit(e) {
             name: nameInput().value,
             date: dateInput().value,
             description: descriptionInput().value,
+            location: locationInput().value,
             host_attributes: hostInput().value
         }
     }
@@ -328,14 +323,13 @@ function formSubmit(e) {
         body: JSON.stringify(strongParams),
         method: "POST"
     })
-        .then( function (resp) {
-            return resp.json();
-        })
+        .then(r => r.json())
         .then( function (meeting) {
             meetings.push(meeting)
             renderMeetings()
         })
 }
+
 
 //display our form as an event
 function displayFormEvent() {
