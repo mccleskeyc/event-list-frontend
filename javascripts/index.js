@@ -1,5 +1,8 @@
+//global variables
 let meetings = [];
 const baseUrl = "http://localhost:3000"
+
+
 //getters 
 //grab and return element "main"
 function main() {
@@ -9,6 +12,10 @@ function main() {
 //grab form inputs: meeting, description, date
 function nameInput() {
     return document.getElementById("name")
+}
+
+function locationInput() {
+    return document.getElementById("location")
 }
 
 function descriptionInput() {
@@ -33,6 +40,7 @@ function resetInputAll() {
     nameInput().value = ""
     dateInput.value = ""
     descriptionInput().value = ""
+    locationInput().value = ""
    
 }
 
@@ -83,6 +91,11 @@ function formTemplate() {
                 <input type="text" name="host" id="host" autocomplete="off">
                 </div>
 
+                <div class="input-field">
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" autocomplete="off">
+                </div>
+
                 <br>
 
                 <div class="input-field">
@@ -113,6 +126,12 @@ function editFormTemplate(meeting) {
                 <div class="input-field">
                 <label for="name">Event:</label>
                 <input type="text" name="name" id="name" autocomplete="off" value="${meeting.name}">
+                </div>
+
+    
+                <div class="input-field">
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" autocomplete="off" value="${meeting.location}">
                 </div>
 
                 <br>
@@ -179,6 +198,7 @@ function editFormSubmit(e) {
             name: nameInput().value,
             date: dateInput().value,
             description: descriptionInput().value,  
+            location: locationInput().value,
         }
     }
     const id = e.target.dataset.id;
@@ -214,6 +234,7 @@ function renderMeeting(meeting) {
     let div = document.createElement("div");
     let h3 = document.createElement("h3");
     let h4 = document.createElement("h4");
+    let loc = document.createElement("h4")
     let hostedBy = document.createElement("p")
     let p = document.createElement("p");
     let deleteLink = document.createElement("a");
@@ -236,12 +257,14 @@ function renderMeeting(meeting) {
     //set inner text to inputed data
     h3.innerText = meeting.name;
     h4.innerText = meeting.date;
+    loc.innerText = meeting.location;
     hostedBy.innerText = `Hosted By: ${meeting.host.name}`;
     p.innerText = meeting.description
 
     //put the h3/h4/p tags inside the div
     div.appendChild(h3);
     div.appendChild(h4);
+    div.appendChild(loc);
     div.appendChild(hostedBy);
     div.appendChild(p);
     div.appendChild(editLink);
