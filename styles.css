@@ -1,7 +1,125 @@
+* {
+  color: #333;
+  font-family: 'Raleway', sans-serif;
+  
+}
+body {padding: 50px;
+  background: url("gplaypattern_@2X.png") repeat 0 0 transparent;
+}
 
-  li {
-    text-align: center;
-    width:50%;
-    list-style-type: none;
-    background-color:burlywood;
-  }
+.form {
+  justify-content: center; 
+  align-items: center;
+  padding-left: 30%;
+}
+#form{
+  display: inline-grid; 
+  margin: auto;
+  width: 50%;
+  border-radius: 25px;
+  background-color: #ffffff50;
+  padding: 20px;
+}
+
+.meeting-posts{
+  
+  margin: auto;
+  width: 50%;
+  word-wrap: break-word;
+  border-radius: 25px;
+  background-color: #ffffff80;
+  padding: 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  
+}
+
+h1, h2, h3 {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  color: #333;
+  text-decoration: underline;
+}
+
+h1 {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.site-title {
+
+  display: block;
+  color: #fff;
+  text-shadow: 1px 1px #333;
+  text-align: right;
+  padding: 0px 0px;
+  padding-top: 5px;
+  padding-right: 10px;
+  text-decoration: none;
+  width: auto;
+}
+
+ul {overflow: hidden;
+  background: url("gplaypattern_@2Xnav2.png") repeat 0 0 transparent;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+ul a {
+  float: left;
+  display: block;
+  color: #fff;
+  text-shadow: 1px 1px #333;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+button {
+  background-color: #66333380;
+ border-color: #eeeeee99;
+  border-style: outset;
+  color: #fff;
+  text-shadow: 1px 1px #333;
+  border-radius: 4px;
+
+}
+
+.update-button {
+  width: 20%;
+  padding: 6px 12px;
+  
+}
+
+.delete-button {
+  margin-left: 2%;
+  width: 20%;
+  padding: 6px 12px;
+}
+
+p.mtg-page-info {
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.submit {
+
+  border-style: outset;
+  border-color: antiquewhite;
+  border-radius: 4px;
+
+  background-color: #66333390;
+ border-color: #eeeeee99;
+
+  color: #fff;
+  text-shadow: 1px 1px #333;
+
+}
