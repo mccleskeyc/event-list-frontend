@@ -59,16 +59,14 @@ const baseUrl = "http://localhost:3000";
     }
 //fetch the meetings from the api
 //used: DOMContentLoad
-function getMeetings() {
-    //fetch to the api, meetings index, grab meetings
-    fetch(baseUrl + '/meetings')
-        .then(r => r.json())
-        .then(function(data) {
-            meetings = data
+async function getMeetings() {
 
-            renderMeetings();
-        })
-}
+  
+    const resp = await fetch(baseUrl + '/meetings')
+    const data = await resp.json();
+    meetings = data
+    renderMeetings();
+  }
 
 //templates 
 
@@ -269,23 +267,22 @@ function renderMeeting(meeting) {
 }
 //delete an event
 //used: renderMeeting()
-function deleteMeeting(e) {
+async function deleteMeeting(e) {
     e.preventDefault();
 
-  let id = e.target.dataset.id;
+    let id = e.target.dataset.id;
 
-  fetch(baseUrl + "/meetings/" + id, {
-    method: "DELETE"
-  })
-  .then(r => r.json())
-  .then(function(data) {
+    const resp = await fetch(baseUrl + "/meetings/" + id, {
+        method: "DELETE"
+    })
+
+    const data = await resp.json();
 
     meetings = meetings.filter(function(meeting){
-      return meeting.id !== data.id;
+        return meeting.id !== data.id;
     })
 
     renderMeetings();
-  })
 }
 
 //render the index by resetting container and setting container innerHTML to meetingsTemplate
