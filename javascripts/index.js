@@ -1,62 +1,4 @@
-//global variables
-let meetings = [];
-const baseUrl = "http://localhost:3000";
 
-
-
-//getters 
-    //grab and return element "container"
-    //used: resetContainer(), renderForm(), renderEditForm(), renderMeetings(), getMeetings, renderFormSubmit()
-    function container() {
-        return document.getElementById("container")
-    }
-
-    //grab form inputs: meeting, description, date
-    //used: formSubmit(), editFormSubmit()
-    function nameInput() {
-        return document.getElementById("name")
-    }
-    //used: formSubmit(), editFormSubmit()
-    function locationInput() {
-        return document.getElementById("location")
-    }
-
-    //used: formSubmit(), editFormSubmit(
-    function descriptionInput() {
-        return document.getElementById("description")
-    }
-    //used: formSubmit(), editFormSubmit()
-    function dateInput() {
-        return document.getElementById("date")
-    }
-    //used: formSubmit(), editFormSubmit()
-    function hostInput() {
-        return document.getElementById("host")
-    }
-
-    //grab form
-    //used: renderForm(), renderEditForm()
-    function form() {
-        return document.getElementById("form")
-    }
-
-    //grab container using container(), then clear it 
-        //used: renderForm(), renderEditForm(), renderMeetings()
-        function resetContainer() {
-            container().innerHTML = ""
-        }                       
-
-    //grab the link to the form
-    //used: displayFormEvent() (=> DOMContentLoad)
-    function formLink() {
-        return document.getElementById("form-link")
-    }
-
-    //grab the link to the meetings index
-    //used: displayMeetingsEvent() (=> DOMContentLoad)
-    function meetingsLink() {
-        return document.getElementById("meetings-link")
-    }
 //fetch the meetings from the api
 //used: DOMContentLoad
 async function getMeetings() {
@@ -68,6 +10,10 @@ async function getMeetings() {
     renderMeetings();
   }
 
+
+  function resetContainer() {
+    container().innerHTML = ""
+}  
 //templates 
 
 //create the form to create an event
