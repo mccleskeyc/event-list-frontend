@@ -4,7 +4,7 @@
   
 }
 body {padding: 50px;
-  background: url("gplaypattern_@2X.png") repeat 0 0 transparent;
+  background: url("img/gplaypattern_@2X.png") repeat 0 0 transparent;
 }
 
 .form {
@@ -64,7 +64,7 @@ h1 {
 }
 
 ul {overflow: hidden;
-  background: url("gplaypattern_@2Xnav2.png") repeat 0 0 transparent;
+  background: url("img/gplaypattern_@2Xnav2.png") repeat 0 0 transparent;
   position: fixed;
   top: 0;
   right: 0;
