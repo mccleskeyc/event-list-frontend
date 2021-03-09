@@ -43,11 +43,15 @@ h1, h2, h3 {
   width: 50%;
   text-align: center;
   color: #333;
-  text-decoration: underline;
+  
 }
 
 h1 {
   font-family: 'Rajdhani', sans-serif;
+}
+
+h2 {
+  text-decoration: underline;
 }
 
 .site-title {
@@ -84,24 +88,25 @@ ul a {
 
 button {
   background-color: #66333380;
- border-color: #eeeeee99;
+  border-color: #eeeeee99;
   border-style: outset;
   color: #fff;
   text-shadow: 1px 1px #333;
   border-radius: 4px;
-
+  
 }
 
 .update-button {
   width: 20%;
   padding: 6px 12px;
-  
+  font-size: 16px;
 }
 
 .delete-button {
   margin-left: 2%;
   width: 20%;
   padding: 6px 12px;
+  font-size: 16px;
 }
 
 p.mtg-page-info {
@@ -121,5 +126,5 @@ p.mtg-page-info {
 
   color: #fff;
   text-shadow: 1px 1px #333;
-
+  font-size: 16px;
 }
