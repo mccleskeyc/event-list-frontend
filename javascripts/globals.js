@@ -1,7 +1,3 @@
-//**global variables
-
-const baseUrl = "http://localhost:3000";
-
 //**getters 
 const container = () => document.getElementById("container")
 const nameInput = () => document.getElementById("name")

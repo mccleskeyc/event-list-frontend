@@ -68,6 +68,13 @@ class Meeting {
         Meeting.all.push(this)
     }
 // ** static mtg functions ** //
+    static async getMeetings() {
+
+        const data = await Api.get("/meetings");
+        Meeting.createFromCollection(data)
+        Meeting.renderMeetings();
+    }
+
     static create(attr) {
         let meeting = new Meeting(attr);
         meeting.save();
@@ -112,7 +119,7 @@ class Meeting {
     
         let id = e.target.dataset.id;
     
-        const resp = await fetch(baseUrl + "/meetings/" + id, {
+        const resp = await fetch(Api.baseUrl + "/meetings/" + id, {
             method: "DELETE"
         })
     
@@ -217,19 +224,10 @@ class Meeting {
             }
         }
 
-
-        fetch(baseUrl + '/meetings', {
-            headers: {
-                "Accpet": "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(strongParams),
-            method: "POST"
-        })
-            .then(r => r.json())
-            .then(function (data) {
-                Meeting.create(data)
-                Meeting.renderMeetings()
+        Api.post('/meetings', strongParams)
+            .then(function(data) {
+                Meeting.create(data);
+                Meeting.renderMeetings();
             })
     }
 
@@ -246,22 +244,12 @@ class Meeting {
             }
         }
         const id = e.target.dataset.id;
-    
-        fetch(baseUrl + "/meetings/" + id, {
-            method: "PATCH",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(strongParams)
-        })
-            .then(r => r.json())
+        
+        Api.patch("/meetings/" + id,  strongParams)
             .then(function (data) {
                 // selects the meeting out of the array
     
-                let m = Meeting.all.find(function (m) {
-                    return m.id == data.id;
-                })
+                let m = Meeting.all.find((m) => m.id == data.id);
                 //gets the index of the mtg
                 let idx = Meeting.all.indexOf(m);
                 //updates the index value with the updated mtg

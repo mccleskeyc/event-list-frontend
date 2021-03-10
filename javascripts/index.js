@@ -1,12 +1,3 @@
-async function getMeetings() {
-
-
-    const resp = await fetch(baseUrl + '/meetings')
-    const data = await resp.json();
-    Meeting.createFromCollection(data)
-    Meeting.renderMeetings();
-}
-
 function resetContainer() {
     container().innerHTML = ""
 }
@@ -28,7 +19,7 @@ function displayMeetingsEvent() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    getMeetings();
+    Meeting.getMeetings();
     displayFormEvent();
     displayMeetingsEvent();
 });
