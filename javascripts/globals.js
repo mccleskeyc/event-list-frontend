@@ -1,5 +1,5 @@
 //**global variables
-let meetings = [];
+
 const baseUrl = "http://localhost:3000";
 
 //**getters 
