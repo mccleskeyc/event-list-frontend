@@ -113,24 +113,19 @@ class Meeting {
     
         Meeting.renderEditForm(meeting)
     }
-
     static async deleteMeeting(e) {
         e.preventDefault();
-    
+      
         let id = e.target.dataset.id;
-    
-        const resp = await fetch(Api.baseUrl + "/meetings/" + id, {
-            method: "DELETE"
+      
+        const data = await Api.delete("/meetings/" + id);
+      
+        Meeting.all = Meeting.all.filter(function(meeting){
+          return meeting.id !== data.id;
         })
-    
-        const data = await resp.json();
-    
-        Meeting.all = Meeting.all.filter(function (meeting) {
-            return meeting.id !== data.id;
-        })
-    
+      
         Meeting.renderMeetings();
-    }
+      }
 
 // ** static form functions ** //
     static formTemplate() {
