@@ -6,7 +6,7 @@ Rendezvous is a single-page application dedicated to crowdsourcing event informa
 - Fork and clone this repo as well as the [back-end](https://github.com/mccleskeyc/event-list-backend)
 - In the back-end directory: run `bundle install`, `rails db:migrate`, and seed the data with `rails db:seed`.
 - In the back-end directory: run `rails s` to start the server
-- In the front-end director: run `open index.html`
+- In the front-end directory: run `open index.html`
 - The file will open in your default browser, where you can begin to use it.
 
 ##  License
