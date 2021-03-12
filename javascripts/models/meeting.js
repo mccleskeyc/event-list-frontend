@@ -165,7 +165,7 @@ class Meeting {
 
     static editFormTemplate(meeting) {
         return `
-        <h2>Add an event</h2>
+        <h2>Edit ${meeting.name}</h2>
         <div class="form">
                 <form id="form" data-id="${meeting.id}">
                     
