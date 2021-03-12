@@ -175,7 +175,7 @@ class Meeting {
                     <br>
     
                     <label for="host">Host:</label> 
-                    <input type="text" name="host" id="host" autocomplete="off" value="${meeting.location}">
+                    <input type="text" name="host" id="host" autocomplete="off" value="${meeting.host.name}">
     
                     <br>
                     

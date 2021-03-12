@@ -23,7 +23,7 @@ body {padding: 50px;
 
 .meeting-posts{
   
-  margin: auto;
+  margin: 0 auto;
   width: 50%;
   word-wrap: break-word;
   border-radius: 25px;
@@ -39,7 +39,7 @@ ul {
 }
 
 h1, h2, h3 {
-  margin: auto;
+  margin: 0 auto;
   width: 50%;
   text-align: center;
   color: #333;
