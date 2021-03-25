@@ -1,3 +1,4 @@
+//meeting related functions
 class Meeting {
     static all = []
 
@@ -10,8 +11,31 @@ class Meeting {
         this.host = attr.host;
     }
 
+    static async getMeetings() {
+
+        const data = await Api.get("/meetings");
+        Meeting.createFromCollection(data)
+        Meeting.renderMeetings();
+    }
+
+    static meetingsTemplate() {
+        return `
+            <h2>All Events</h3>
+            <p class="mtg-page-info">See events added by members of the community.</span>
+            <div id="meetings"></div>
+            `;
+    }
+
+    static renderMeetings() {
+
+        container().innerHTML = Meeting.meetingsTemplate();
+
+
+        Meeting.all.forEach(meeting => meeting.render());
+    }
+
     render() {
-        //create element for each tag we need (div, h4, h3, p)
+
         let div = document.createElement("div");
         div.className = "meeting-posts"
         let title = document.createElement("h3");
@@ -27,12 +51,12 @@ class Meeting {
         let blank = document.createElement("p");
 
 
-        //handles editing meetings
+
         editLink.dataset.id = this.id
         editLink.setAttribute("href", "#")
         editLink.innerText = "Edit"
 
-        //handles deleting meetings
+
         deleteLink.dataset.id = this.id
         deleteLink.setAttribute("href", "#")
         deleteLink.innerText = "Delete"
@@ -40,7 +64,7 @@ class Meeting {
         editLink.addEventListener("click", Meeting.editMeeting);
         deleteLink.addEventListener("click", Meeting.deleteMeeting)
 
-        //set inner text to inputed data
+
         title.innerText = this.name;
         date.innerText = `Event Date: ${this.date}`;
         loc.innerText = `Location: ${this.location}`;
@@ -48,7 +72,7 @@ class Meeting {
         p.innerText = `Description: ${this.description}`;
 
 
-        //put the h3/h4/p tags inside the div
+
         div.appendChild(title);
         div.appendChild(date);
         div.appendChild(loc);
@@ -59,75 +83,37 @@ class Meeting {
 
 
 
-        //rendering above template
+
         meetingsDiv.appendChild(div);
         meetingsDiv.appendChild(blank);
     }
 
-    save() {
-        Meeting.all.push(this)
-    }
-// ** static mtg functions ** //
-    static async getMeetings() {
-
-        const data = await Api.get("/meetings");
-        Meeting.createFromCollection(data)
-        Meeting.renderMeetings();
-    }
-
-    static create(attr) {
-        let meeting = new Meeting(attr);
-        meeting.save();
-        return meeting;
-    }
-
-
-
-    static createFromCollection(collection) {
-        collection.forEach(data => Meeting.create(data))
-    }
-
-    static meetingsTemplate() {
-        return `
-            <h2>All Events</h3>
-            <p class="mtg-page-info">See events added by members of the community.</span>
-            <div id="meetings"></div>
-            `;
-    }
-
-    static renderMeetings() {
-        resetContainer();
-        container().innerHTML = Meeting.meetingsTemplate();
-
-        //iteration
-        Meeting.all.forEach(meeting => meeting.render());
-    }
 
     static editMeeting(e) {
         e.preventDefault();
-    
+
         const id = e.target.dataset.id;
         const meeting = Meeting.all.find(function (meeting) {
             return meeting.id == id;
         })
-    
+ 
         Meeting.renderEditForm(meeting)
     }
     static async deleteMeeting(e) {
         e.preventDefault();
-      
-        let id = e.target.dataset.id;
-      
-        const data = await Api.delete("/meetings/" + id);
-      
-        Meeting.all = Meeting.all.filter(function(meeting){
-          return meeting.id !== data.id;
-        })
-      
-        Meeting.renderMeetings();
-      }
 
-// ** static form functions ** //
+        let id = e.target.dataset.id;
+
+        const data = await Api.delete("/meetings/" + id);
+
+        Meeting.all = Meeting.all.filter(function (meeting) {
+            return meeting.id !== data.id;
+        })
+
+        Meeting.renderMeetings();
+    }
+
+
     static formTemplate() {
         return `
     <h2>Add an Event</h2>
@@ -158,7 +144,6 @@ class Meeting {
     }
 
     static renderForm() {
-        resetContainer();
         container().innerHTML = Meeting.formTemplate();
         form().addEventListener("submit", Meeting.formSubmit)
     }
@@ -200,12 +185,11 @@ class Meeting {
     }
 
     static renderEditForm(meeting) {
-        resetContainer();
         container().innerHTML = Meeting.editFormTemplate(meeting);
         form().addEventListener("submit", Meeting.editFormSubmit)
     }
 
-// ** event handlers ** //
+
     static formSubmit(e) {
         e.preventDefault();
 
@@ -220,7 +204,7 @@ class Meeting {
         }
 
         Api.post('/meetings', strongParams)
-            .then(function(data) {
+            .then(function (data) {
                 Meeting.create(data);
                 Meeting.renderMeetings();
             })
@@ -228,7 +212,7 @@ class Meeting {
 
     static editFormSubmit(e) {
         e.preventDefault();
-    
+
         let strongParams = {
             meeting: {
                 name: nameInput().value,
@@ -239,18 +223,32 @@ class Meeting {
             }
         }
         const id = e.target.dataset.id;
-        
-        Api.patch("/meetings/" + id,  strongParams)
+
+        Api.patch("/meetings/" + id, strongParams)
             .then(function (data) {
-                // selects the meeting out of the array
-    
+
+
                 let m = Meeting.all.find((m) => m.id == data.id);
-                //gets the index of the mtg
+
                 let idx = Meeting.all.indexOf(m);
-                //updates the index value with the updated mtg
+
                 Meeting.all[idx] = new Meeting(data);
-                //renders array of mtgs
+
                 Meeting.renderMeetings();
             })
     }
+
+    static create(attr) {
+        let meeting = new Meeting(attr);
+        meeting.save();
+        return meeting;
+    }
+    static createFromCollection(collection) {
+        collection.forEach(data => Meeting.create(data))
+    }
+
+    save() {
+        Meeting.all.push(this)
+    }
 }
+

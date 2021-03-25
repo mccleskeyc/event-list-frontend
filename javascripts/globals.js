@@ -1,4 +1,4 @@
-//**getters 
+ //node getters
 const container = () => document.getElementById("container")
 const nameInput = () => document.getElementById("name")
 const locationInput = () => document.getElementById("location")

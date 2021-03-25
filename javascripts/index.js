@@ -1,6 +1,3 @@
-function resetContainer() {
-    container().innerHTML = ""
-}
 
 function displayFormEvent() {
     formLink().addEventListener("click", function (e) {
